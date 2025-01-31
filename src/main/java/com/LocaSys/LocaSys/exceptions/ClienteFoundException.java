@@ -14,4 +14,6 @@ public class ClienteFoundException extends RuntimeException {
     public ClienteFoundException(String campo, int valor){
         super("Cliente com " + campo + " " + valor + " não encontrado");
     }
+
+
 }

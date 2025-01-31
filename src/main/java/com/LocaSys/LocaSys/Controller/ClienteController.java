@@ -2,13 +2,13 @@ package com.LocaSys.LocaSys.Controller;
 
 import com.LocaSys.LocaSys.Entity.Cliente;
 import com.LocaSys.LocaSys.Service.ClienteService;
+import com.LocaSys.LocaSys.exceptions.CadastroClienteFoundException;
 import com.LocaSys.LocaSys.exceptions.ClienteFoundException;
+import jakarta.transaction.SystemException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -67,6 +67,14 @@ public class ClienteController {
         catch (ClienteFoundException ex){
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
+
+    }
+
+    @PostMapping("/cadastrar")
+    public ResponseEntity<?> addCliente(@Valid @RequestBody Cliente cliente){
+
+
+        return ResponseEntity.ok(service.addCliente(cliente));
 
     }
 

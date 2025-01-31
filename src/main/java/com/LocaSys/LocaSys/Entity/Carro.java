@@ -1,16 +1,24 @@
 package com.LocaSys.LocaSys.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
+
 
 import java.time.LocalDate;
 import java.util.List;
+
 
 @Entity
 @Table(name = "CARRO")
 @Getter
 @Setter
+
 public class Carro {
 
     @Id
@@ -18,21 +26,31 @@ public class Carro {
     @Column(name = "id_Carro")
     private int id;
 
+    @NotNull
+    @Size(min = 5, message = "O nome deve ter mais que 5 caracteres")
     @Column(name = "Nome")
     private String nome;
 
+    @NotNull
+    @Size(min = 3, message = "Modelo inválido")
     @Column(name = "Modelo")
     private String modelo;
 
     @Column(name = "Ano_Fabricacao")
     private LocalDate anoFabricacao;
 
+    @NotNull
     @Column(name = "Cor")
     private String cor;
 
+    @NotNull
+    @Size(min = 7, max = 7, message = "Placa inválida")
     @Column(name = "Placa")
     private String placa;
 
+    @Positive
+    @NotNull
+    @Size(min = 50, message = "Não pode cadastrar carro com valor abaixo de R$50")
     @Column(name = "Valor_Aluguel")
     private double valorAluguel;
 
