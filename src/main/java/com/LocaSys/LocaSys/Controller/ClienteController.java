@@ -7,6 +7,7 @@ import com.LocaSys.LocaSys.exceptions.ClienteFoundException;
 import jakarta.transaction.SystemException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,11 +71,23 @@ public class ClienteController {
 
     }
 
+    @ExceptionHandler(CadastroClienteFoundException.class)
+    public ResponseEntity<String> handleClienteJaCadastrado(CadastroClienteFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+
+
     @PostMapping("/cadastrar")
     public ResponseEntity<?> addCliente(@Valid @RequestBody Cliente cliente){
 
-
+    try {
         return ResponseEntity.ok(service.addCliente(cliente));
+    }
+    catch (CadastroClienteFoundException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
 
     }
 

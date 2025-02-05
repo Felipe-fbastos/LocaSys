@@ -3,6 +3,7 @@ package com.LocaSys.LocaSys.Controller;
 import com.LocaSys.LocaSys.Entity.Carro;
 import com.LocaSys.LocaSys.Service.CarroService;
 import com.LocaSys.LocaSys.exceptions.CarroFoundException;
+import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,12 @@ public class CarroController {
         }
 
     }
+
+//    @PostMapping("/cadastrar")
+//    public ResponseEntity<?> addCarro(@Valid @RequestBody Carro carro){
+//
+//        return ResponseEntity.ok(service.addCarro(carro));
+//    }
 }
 
 

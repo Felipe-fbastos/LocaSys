@@ -13,7 +13,7 @@ public class MaiorDeIdadeValidator implements ConstraintValidator<MaiorDeIdade, 
     @Override
     public boolean isValid(LocalDate dtNascimento, ConstraintValidatorContext constraintValidatorContext) {
         //Pega o periodo entre a data de nascimento  e o dia de hoje e verifica se é maior de 18.
-        return Period.between(dtNascimento,LocalDate.now()).getYears() >=18;
+        return Period.between(dtNascimento,LocalDate.now()).getYears() >= 18;
     }
 
 

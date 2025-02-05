@@ -46,4 +46,9 @@ public class CarroService {
         return repository.findByPlaca(placa)
                 .orElseThrow(() -> new CarroFoundException("placa", placa));
     }
+
+//    public Carro addCarro(Carro carro){
+//
+//        return repository.save(carro);
+//    }
 }

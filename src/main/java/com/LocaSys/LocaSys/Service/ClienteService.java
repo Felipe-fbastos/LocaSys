@@ -43,9 +43,12 @@ public class ClienteService {
     }
 
     public Cliente addCliente(Cliente cliente){
+        //repository.findByCpf(cliente.getCpf()).orElseThrow(() -> new CadastroClienteFoundException(cliente.getCpf()));
 
-        repository.findByNroCNH(cliente.getCpf()).orElseThrow(() -> new CadastroClienteFoundException(cliente.getCpf()));
-
+        // Verifica se já existe um cliente com o mesmo CPF
+        if (repository.findByCpf(cliente.getCpf()).isPresent()) {
+            throw new CadastroClienteFoundException(cliente.getCpf());
+        }
         return repository.save(cliente);
 
     }

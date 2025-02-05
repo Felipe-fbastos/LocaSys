@@ -13,20 +13,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.lang.annotation.Annotation;
 import java.time.LocalDate;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class CadastroClienteFoundException extends RuntimeException {
 
 
 
-    public CadastroClienteFoundException(String campo){
-        super(campo + "Já cadastrado");
-    }
+  public CadastroClienteFoundException(String cpf){
+       super( cpf + "CPF já cadastrado");
+   }
 
-    public CadastroClienteFoundException(LocalDate idade, LocalDate dtEmissao){
-        MaiorDeIdadeValidator maiorDeIdadeValidator = new MaiorDeIdadeValidator();
-        EmissaoCNHValidator emissaoCNHValidator = new EmissaoCNHValidator();
-        emissaoCNHValidator.isValid(dtEmissao);
-        maiorDeIdadeValidator.isValid(idade);
-    }
 
    }

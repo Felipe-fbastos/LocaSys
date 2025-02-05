@@ -1,6 +1,7 @@
 package com.LocaSys.LocaSys.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -48,9 +49,11 @@ public class Carro {
     @Column(name = "Placa")
     private String placa;
 
+    //Size é para Strings e coleções
+    //Min é para valores genéricos
     @Positive
     @NotNull
-    @Size(min = 50, message = "Não pode cadastrar carro com valor abaixo de R$50")
+    @Min(value = 50, message = "Não pode cadastrar carro com valor abaixo de R$50")
     @Column(name = "Valor_Aluguel")
     private double valorAluguel;
 
@@ -58,7 +61,7 @@ public class Carro {
     private List<Locacao> locacao;
 
     @ManyToOne
-    @JoinColumn(name = "Status")
+    @JoinColumn(name = "Status", referencedColumnName = "id_Status_Veiculo")
     private StatusVeiculo statusVeiculo;
 
     //Getters e Setters
