@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/clientes")
@@ -71,13 +72,6 @@ public class ClienteController {
 
     }
 
-    @ExceptionHandler(CadastroClienteFoundException.class)
-    public ResponseEntity<String> handleClienteJaCadastrado(CadastroClienteFoundException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-    }
-
-
-
     @PostMapping("/cadastrar")
     public ResponseEntity<?> addCliente(@Valid @RequestBody Cliente cliente){
 
@@ -89,6 +83,20 @@ public class ClienteController {
     }
 
 
+    }
+
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<?> updateCliente(@PathVariable("id") int id, @Valid @RequestBody Cliente clienteAtualizado){
+
+        try{
+            return ResponseEntity.ok(service.updateCliente(clienteAtualizado, id));
+        }
+        catch (NoSuchElementException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        catch (IllegalArgumentException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
     }
 
 }

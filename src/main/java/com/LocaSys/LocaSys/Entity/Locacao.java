@@ -33,4 +33,52 @@ public class Locacao {
 
     @Column(name = "ValorLocacao")
     private double valorLocacao;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Carro getCarro() {
+        return carro;
+    }
+
+    public void setCarro(Carro carro) {
+        this.carro = carro;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public LocalDate getDtIncio() {
+        return dtIncio;
+    }
+
+    public void setDtIncio(LocalDate dtIncio) {
+        this.dtIncio = dtIncio;
+    }
+
+    public LocalDate getDtFim() {
+        return dtFim;
+    }
+
+    public void setDtFim(LocalDate dtFim) {
+        this.dtFim = dtFim;
+    }
+
+    public double getValorLocacao() {
+        return valorLocacao;
+    }
+
+    public void setValorLocacao(double valorLocacao) {
+        this.valorLocacao = valorLocacao;
+    }
 }

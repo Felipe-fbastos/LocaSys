@@ -19,7 +19,7 @@ public class CadastroClienteFoundException extends RuntimeException {
 
 
   public CadastroClienteFoundException(String cpf){
-       super( cpf + "CPF já cadastrado");
+       super( cpf + " CPF já cadastrado");
    }
 
 

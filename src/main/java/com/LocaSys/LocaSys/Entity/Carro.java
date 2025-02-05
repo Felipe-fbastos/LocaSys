@@ -6,20 +6,18 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.validation.annotation.Validated;
 
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Entity
 @Table(name = "CARRO")
 @Getter
 @Setter
-
 public class Carro {
 
     @Id
@@ -43,6 +41,7 @@ public class Carro {
     @NotNull
     @Column(name = "Cor")
     private String cor;
+
 
     @NotNull
     @Size(min = 7, max = 7, message = "Placa inválida")

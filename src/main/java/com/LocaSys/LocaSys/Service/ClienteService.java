@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -43,13 +44,33 @@ public class ClienteService {
     }
 
     public Cliente addCliente(Cliente cliente){
-        //repository.findByCpf(cliente.getCpf()).orElseThrow(() -> new CadastroClienteFoundException(cliente.getCpf()));
 
-        // Verifica se já existe um cliente com o mesmo CPF
-        if (repository.findByCpf(cliente.getCpf()).isPresent()) {
+        if (repository.existsByCpf(cliente.getCpf())) {
             throw new CadastroClienteFoundException(cliente.getCpf());
         }
         return repository.save(cliente);
+
+    }
+
+    public Cliente updateCliente(Cliente clienteAtualizado, int id){
+            Cliente clienteExistente = repository.findById(id)
+                    .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
+
+            if (repository.existsByCpfAndIdNot(clienteAtualizado.getCpf(),id)){
+                throw new IllegalArgumentException("Cliente já cadastrado no sistema");
+            }
+
+            clienteExistente.setNome(clienteAtualizado.getNome());
+            clienteExistente.setSobrenome(clienteAtualizado.getSobrenome());
+            clienteExistente.setCpf(clienteAtualizado.getCpf());
+            clienteExistente.setDtNascimento(clienteAtualizado.getDtNascimento());
+            clienteExistente.setNroCNH(clienteAtualizado.getNroCNH());
+            clienteExistente.setDtvalidadeCNH(clienteAtualizado.getDtvalidadeCNH());
+            clienteExistente.setDtEmissaoCNH(clienteAtualizado.getDtEmissaoCNH());
+            clienteExistente.setEmail(clienteAtualizado.getEmail());
+            clienteExistente.setTelefone(clienteAtualizado.getTelefone());
+
+            return repository.save(clienteExistente);
 
     }
 

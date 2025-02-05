@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/carros")
@@ -63,11 +64,33 @@ public class CarroController {
 
     }
 
-//    @PostMapping("/cadastrar")
-//    public ResponseEntity<?> addCarro(@Valid @RequestBody Carro carro){
-//
-//        return ResponseEntity.ok(service.addCarro(carro));
-//    }
+    @PostMapping("/cadastrar")
+    public ResponseEntity<?> addCarro(@Valid @RequestBody Carro carro){
+        try {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.addCarro(carro));
+        }
+        catch (IllegalArgumentException ex){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
+
+    }
+
+    @PutMapping("/update/{id}") //Cuidado a ordem importa, o PathVariable deve estar perto da variavel. Senão Quebra
+    public ResponseEntity<?> updateCarro(@PathVariable("id") int id, @RequestBody @Valid  Carro carroAtualizado){
+        try {
+            return ResponseEntity.ok(service.updateCarro(carroAtualizado,id));
+        }
+        catch (NoSuchElementException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+        catch (IllegalArgumentException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
+        }
+    }
+
+
+
 }
 
 

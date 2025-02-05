@@ -12,5 +12,9 @@ public interface CarroRepository extends JpaRepository<Carro, Integer>  {
     Optional<Carro>  findByNome(String nome);
     Optional<Carro>  findByModelo(String modelo);
     Optional<Carro>  findByPlaca(String placa);
+    Optional<Carro>  findByStatusVeiculo_Id(int status);
+
+    boolean existsByPlaca(String placa);
+    boolean existsByPlacaAndIdNot(String placa, int id);
 
 }
